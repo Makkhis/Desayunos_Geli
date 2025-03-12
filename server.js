@@ -4,7 +4,7 @@ const routes = require('./routes/index');
 require('dotenv').config();
 const app = express();
 
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 8080;
 
 //middleware
 app.use(express.json());
@@ -14,7 +14,9 @@ sequelize.sync()
     .catch( err => console.error(err));
 
 app.listen(PORT, () => {
-    console.log(`server is running ${PORT}`)
+    console.log(`server is running ${PORT} 🏃`)
 });
 
-app.use(routes.unprotectedRoutes);
+app.use(routes.unprotectedRoutes); 
+app.use(authMiddleware);
+app.use(routes.protectedRoutes);

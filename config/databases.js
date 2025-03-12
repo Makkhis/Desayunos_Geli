@@ -5,25 +5,20 @@ const db_name = process.env.DB_NAME;
 const db_user = process.env.DB_USER;
 const db_pass = process.env.DB_PASSWORD;
 
-const express = require('express');
-const sequelize = require('../config/databases');
-const routes = require('../routes/index');
-require('dotenv').config();
-const app = express();
-
-const PORT = process.env.PORT || 3306; //se usara MySql(tanto laptoppersonal como servicio es 3306)
-
-//middleware
-app.use(express.json());
-
-sequelize.sync()
-    .then( () => console.log("DB is ready ✅"))
-    .catch( err => console.error(err));
-
-app.listen(PORT, () => {
-    console.log(`server is running ${PORT}`)
+const sequelize = new Sequelize(db_name, db_user, db_pass,{
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+    //logging: false
 });
 
-app.use(routes.unprotectedRoutes);
+sequelize.authenticate()
+    .then(() => console.log("connected"))
+    .catch(() => console.error("Error trying to connect"));
+
+module.exports = sequelize;
+
+
+
+
 
 
