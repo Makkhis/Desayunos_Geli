@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authService = require('../../../services/Users/auth.js');
+//Aqui ira el middleware si es que se usa alguno pata eliminar usuarios
 const { StatusCodes } = require("http-status-codes");
 require('dotenv').config();
 

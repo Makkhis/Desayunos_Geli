@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authService = require('../../../services/Users/auth');
+const validateUser = require('../../../middlewares/validateUser');
 const { StatusCodes } = require("http-status-codes");
 require('dotenv').config();
 
