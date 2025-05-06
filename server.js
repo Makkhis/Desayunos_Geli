@@ -1,33 +1,34 @@
 const express = require("express");
 const sequelize = require("./config/databases");
-const authMiddleware = require("./middlewares/authMiddleware"); // Middleware de autenticación
-const logger = require("./middlewares/logger"); // Middleware de registro de solicitudes
-const routes = require("./routes/index"); // Importamos las rutas
+const authMiddleware = require("./middlewares/authMiddleware");
+const logger = require("./middlewares/logger");
+const routes = require("./routes/index");
 require("dotenv").config();
+
+// 👉 Importa los modelos antes de sync()
+require("./models/User"); 
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// 🛠️ Middleware global
-app.use(express.json()); // Para procesar JSON en las solicitudes
-app.use(logger); // Middleware de logging
+app.use(express.json());
+app.use(logger);
 
-// 🛠️ Conectar a la base de datos
+// Conectar a la base de datos
 sequelize
   .sync()
   .then(() => console.log("✅ DB is ready"))
   .catch((err) => console.error("❌ DB connection error:", err));
 
-// 🌐 Rutas públicas (NO requieren autenticación)
+// Rutas públicas (NO requieren autenticación)
 app.use(routes.unprotectedRoutes); 
 
-// 🔒 Middleware de autenticación (debe ir antes de las rutas protegidas)
+// Middleware de autenticación (SOLO después de las públicas)
 app.use(authMiddleware);
 
-// 🌐 Rutas protegidas (REQUIEREN autenticación)
+// Rutas protegidas (REQUIEREN token)
 app.use(routes.protectedRoutes);
 
-// 🚀 Iniciar servidor
 app.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT} 🏃`);
 });
