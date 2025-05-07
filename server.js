@@ -5,7 +5,7 @@ const logger = require("./middlewares/logger");
 const routes = require("./routes/index");
 require("dotenv").config();
 
-// 👉 Importa los modelos antes de sync()
+// Importa los modelos antes de sync()
 require("./models/User"); 
 
 const app = express();

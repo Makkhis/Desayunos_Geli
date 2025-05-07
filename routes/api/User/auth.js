@@ -4,7 +4,7 @@ const { register } = require('../../../services/Users/auth');
 const { StatusCodes } = require("http-status-codes");
 require('dotenv').config();
 
-// Registro
+// ⛔️ Esto NO debe tener verificación
 router.post("/registerUser", async (req, res) => {
   try {
     await register(req, res); 
@@ -13,9 +13,8 @@ router.post("/registerUser", async (req, res) => {
   }
 });
 
+module.exports = router;
 
-
-module.exports = router; 
 
 
 

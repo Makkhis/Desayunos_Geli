@@ -6,7 +6,9 @@ const protectedRoutes = express.Router();
 unprotectedRoutes.use("/api/User", require("./api/User/auth"));
 
 // 👇 Rutas protegidas (CRUD que sí necesitan token)
-protectedRoutes.use("/api/User", require("./api/User/update")); 
+protectedRoutes.use("/api/User", require("./private")); 
 
 module.exports = { unprotectedRoutes, protectedRoutes };
+
+
 

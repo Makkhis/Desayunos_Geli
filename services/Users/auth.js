@@ -108,7 +108,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-// 4) Actualizar usuario
+// 5) Actualizar usuario
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -126,7 +126,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-// 5) Eliminar usuario
+// 6) Eliminar usuario
 const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -141,7 +141,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// 6) Activar usuario
+// 7) Activar usuario
 const activateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -156,7 +156,7 @@ const activateUser = async (req, res) => {
   }
 };
 
-// 7) Desactivar usuario
+// 8) Desactivar usuario
 const deactivateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -171,7 +171,7 @@ const deactivateUser = async (req, res) => {
   }
 };
 
-// 8) Buscar usuario por correo
+// 9) Buscar usuario por correo
 const searchUserByEmail = async (req, res) => {
   try {
     const { email } = req.query;
@@ -185,7 +185,7 @@ const searchUserByEmail = async (req, res) => {
   }
 };
 
-// 9) Buscar usuarios por rol
+// 10) Buscar usuarios por rol
 const searchUsersByRole = async (req, res) => {
   try {
     const { role } = req.query;
@@ -196,7 +196,7 @@ const searchUsersByRole = async (req, res) => {
   }
 };
 
-// 10) Contar usuarios totales
+// 11) Contar usuarios totales
 const countUsers = async (req, res) => {
   try {
     const count = await UserModel.count();
@@ -206,16 +206,6 @@ const countUsers = async (req, res) => {
   }
 };
 
-// 11) Contar usuarios por rol
-const countUsersByRole = async (req, res) => {
-  try {
-    const { role } = req.query;
-    const count = await UserModel.count({ where: { role } });
-    return res.status(StatusCodes.OK).json({ total: count });
-  } catch (exception) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: exception.message });
-  }
-};
 
 
 module.exports = {
@@ -229,6 +219,5 @@ module.exports = {
   deactivateUser,
   searchUserByEmail,
   searchUsersByRole,
-  countUsers,
-  countUsersByRole
+  countUsers
 };
